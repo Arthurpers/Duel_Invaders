@@ -11,9 +11,9 @@ import javafx.scene.Scene;
 public class Canon {
     private final int power;
 
-    private final int x;
+    private  int x;
 
-    private final int y;
+    private  int y;
 
     private final int width;
 
