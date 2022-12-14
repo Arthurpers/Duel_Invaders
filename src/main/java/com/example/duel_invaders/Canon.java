@@ -11,16 +11,16 @@ import javafx.scene.Scene;
 public class Canon {
     private final int power;
 
-    private  int x;
+    public  int x;
 
-    private  int y;
+    public  int y;
 
     private final int width;
 
     private final int height;
 
-
-    Rectangle rec = new Rectangle(100.0d, 100.0d , 120.0d, 80.0d);
+    Rectangle rec;
+    //Rectangle rec = new Rectangle(x, y , width, height);
 
 
 
@@ -33,6 +33,11 @@ public class Canon {
         this.width = width;
         this.height = height;
 
+        this.rec = new Rectangle(x, y , width, height);
+
+        //rec.setTranslateX(x);
+        //rec.setTranslateY(y);
+
     }
 
     public int getWidth() {
@@ -44,5 +49,37 @@ public class Canon {
     }
     public Rectangle getRec(){
         return rec;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void move_left(){
+        rec.setTranslateX(rec.getTranslateX()-20);
+        x-=20;
+    }
+
+    public void move_right(){
+        rec.setTranslateX(rec.getTranslateX()+20);
+        x+=20;
+    }
+
+    public void move_down(double Frame){
+        rec.setTranslateY(rec.getTranslateY()- Frame);
+        y-=Frame;
+    }
+
+    public void move_up(double Frame){
+        rec.setTranslateY(rec.getTranslateY()+Frame);
+        y+=Frame;
     }
 }
