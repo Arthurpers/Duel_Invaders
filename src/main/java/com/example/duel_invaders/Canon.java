@@ -15,6 +15,8 @@ public class Canon {
 
     public  int y;
 
+    public int points;
+
     private final int width;
 
     private final int height;
@@ -63,14 +65,14 @@ public class Canon {
         return power;
     }
 
-    public void move_left(){
-        rec.setTranslateX(rec.getTranslateX()-20);
-        x-=20;
+    public void move_left(double Frame){
+        rec.setTranslateX(rec.getTranslateX()-Frame);
+        x-=Frame;
     }
 
-    public void move_right(){
-        rec.setTranslateX(rec.getTranslateX()+20);
-        x+=20;
+    public void move_right(double Frame){
+        rec.setTranslateX(rec.getTranslateX()+Frame);
+        x+=Frame;
     }
 
     public void move_down(double Frame){

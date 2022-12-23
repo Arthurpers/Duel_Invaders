@@ -41,10 +41,12 @@ public class Alien  {
         y+=3;
     }
 
-    public void move_down(){
-        rec.setTranslateY(rec.getTranslateY()-3);
-        y-=3;
+    public void move_down() {
+        rec.setTranslateY(rec.getTranslateY() - 3);
+        y -= 3;
     }
+
+
 
     public Rectangle getRec() {
         return rec;
