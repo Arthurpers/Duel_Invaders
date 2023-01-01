@@ -46,7 +46,13 @@ public class Alien  {
         y -= 3;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public int getY() {
+        return y;
+    }
 
     public Rectangle getRec() {
         return rec;

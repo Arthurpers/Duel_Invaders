@@ -37,11 +37,13 @@ public class Dart extends Rectangle {
 
 
     public void move_down(){
+
         setTranslateY(getTranslateY()-10);
     }
 
     public void move_up(){
-        setTranslateY(getTranslateX()+10);
+
+        setTranslateY(getTranslateY()+10);
     }
 
 

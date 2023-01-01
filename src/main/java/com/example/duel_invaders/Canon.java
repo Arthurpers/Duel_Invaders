@@ -9,6 +9,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 public class Canon {
+
+    boolean dead = false;
     private final int power;
 
     public  int x;
@@ -28,12 +30,14 @@ public class Canon {
 
 
 
-    public Canon(int power, int x, int y, int width, int height) {
+    public Canon(boolean dead, int power, int x, int y, int width, int height) {
+        this.dead = dead;
         this.power = power;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        //this.points = 0;
 
         this.rec = new Rectangle(x, y , width, height);
 
@@ -49,15 +53,21 @@ public class Canon {
     public int getHeight() {
         return height;
     }
+
+    public int getPoint(){
+        return points;
+    }
     public Rectangle getRec(){
         return rec;
     }
 
     public int getX() {
+
         return x;
     }
 
     public int getY() {
+
         return y;
     }
 

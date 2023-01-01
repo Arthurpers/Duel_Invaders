@@ -21,6 +21,8 @@ public class Game extends Application {
     int i;
 
     double a = 0;
+
+    double y = 0;
     double Frame1 = 5;
 
     boolean left_cap_1 = false;
@@ -56,7 +58,11 @@ public class Game extends Application {
 
     private List<Dart> darts = new ArrayList<>() ;
 
+    private List<Dart> AlienDarts = new ArrayList<>() ;
+
     private List<Alien> Aliens = new ArrayList<>() ;
+
+    private List<Canon> Canons = new ArrayList<>() ;
 
     double t = 0;
 
@@ -71,6 +77,13 @@ public class Game extends Application {
         System.out.println(c.getX());
         root.getChildren().add(d);
 
+    }
+
+    public void shoot_alien( Alien a){
+
+        Dart z = new Dart(false, a.getX(), a.getY(),20,20,Color.YELLOW);
+        AlienDarts.add(z);
+        root.getChildren().add(z);
     }
     /*Duration FiringInterval = Duration.millis(400);
     Timeline firing1 = new Timeline(new KeyFrame(Duration.ZERO, event-> shoot(Canon1)),new KeyFrame(FiringInterval));
@@ -103,6 +116,10 @@ public class Game extends Application {
     }
 
     //Remove dead aliens
+
+    /***
+     * This function removes the dead aliens
+     */
     public void remove_dead(){
 
         //root.getChildren().remove(Canon1.rec);
@@ -111,18 +128,36 @@ public class Game extends Application {
             if (s.dead){
                 root.getChildren().remove(s.rec);
                 root.getChildren().remove(s);
+                Aliens.remove(s);
             }
         });
 
         darts.forEach(s ->{
             if (s.dead){
                 root.getChildren().remove(s);
+                darts.remove(s);
+            }
+        });
+
+        AlienDarts.forEach(s ->{
+            if (s.dead){
+                root.getChildren().remove(s);
+                AlienDarts.remove(s);
+            }
+        });
+
+        Canons.forEach( c-> {
+            if (c.dead){
+                root.getChildren().remove(c.rec);
+                root.getChildren().remove(c);
+                Canons.remove(c);
             }
         });
     }
 
-    Canon Canon1 = new Canon(1, 500,500,50,30);
-    Canon Canon2 = new Canon(1,100,500,50,30);
+    Canon Canon1 = new Canon(false,1, 500,500,60,30);
+
+    Canon Canon2 = new Canon(false,1,100,500,60,30);
 
 
 
@@ -150,6 +185,8 @@ public class Game extends Application {
 
 
     public void start(Stage primarystage) throws IOException {
+        Canons.add(Canon1);
+        Canons.add(Canon2);
 
 
         darts.add(d2);
@@ -213,66 +250,48 @@ public class Game extends Application {
         EventHandler<KeyEvent> eventHandlerup = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent e) {
+
+
                 if (e.getCode()== KeyCode.RIGHT){
                     System.out.println("RIGHT");
-                    //transition3.play();
-                    //Canon1.move_right();
                     right_cap_1 = true;
                 }
                 if (e.getCode()== KeyCode.LEFT){
                     System.out.println("LEFT");
-                    //transition4.play();
-                    //Canon1.move_left();
                     left_cap_1 = true;
                 }
                 if (e.getCode()== KeyCode.DOWN){
                     System.out.println("UP");
                     System.out.println(Canon1.getX());
-                    //transition5.play();
-                    //Canon1.move_up();
                     up_cap_1 = true;
                 }
                 if (e.getCode()== KeyCode.UP){
                     System.out.println("DOWN");
-                    //transition2.play();
-                    //Canon1.move_down(Frame1);
                     down_cap_1 = true;
                 }
                 if (e.getCode()== KeyCode.D){
                     System.out.println("SHOOT");
                     firing1.playFromStart();
-                    //shoot_cap = true;
-                    //shoot(Canon1);
                 }
                 if (e.getCode()== KeyCode.SPACE){
                     System.out.println("SHOOT");
                     firing2.playFromStart();
-                    //shoot_cap = true;
-                    //shoot(Canon1);
                 }
                 if (e.getCode()== KeyCode.N){
                     System.out.println("RIGHT");
-                    //transition3.play();
-                    //Canon1.move_right();
                     right_cap_2 = true;
                 }
                 if (e.getCode()== KeyCode.V){
                     System.out.println("LEFT");
-                    //transition4.play();
-                    //Canon1.move_left();
                     left_cap_2 = true;
                 }
                 if (e.getCode()== KeyCode.G){
                     System.out.println("UP");
                     System.out.println(Canon1.getX());
-                    //transition5.play();
-                    //Canon1.move_up();
                     up_cap_2 = true;
                 }
                 if (e.getCode()== KeyCode.B){
                     System.out.println("DOWN");
-                    //transition2.play();
-                    //Canon1.move_down(Frame1);
                     down_cap_2 = true;
                 }
 
@@ -286,64 +305,44 @@ public class Game extends Application {
             public void handle(KeyEvent e) {
                 if (e.getCode()== KeyCode.RIGHT){
                     System.out.println("RIGHT");
-                    //transition3.play();
-                    //Canon1.move_right();
                     right_cap_1 = false;
                 }
                 if (e.getCode()== KeyCode.LEFT){
                     System.out.println("LEFT");
-                    //transition4.play();
-                    //Canon1.move_left();
                     left_cap_1 = false;
                 }
                 if (e.getCode()== KeyCode.DOWN){
                     System.out.println("UP");
                     System.out.println(Canon1.getX());
-                    //transition5.play();
-                    //Canon1.move_up();
                     up_cap_1 = false;
                 }
                 if (e.getCode()== KeyCode.UP){
                     System.out.println("DOWN");
-                    //transition2.play();
-                    //Canon1.move_down(Frame1);
                     down_cap_1 = false;
                 }
                 if (e.getCode()== KeyCode.D){
                     System.out.println("SHOOT");
                     firing1.stop();
-                    //shoot_cap = false;
-                    //shoot(Canon1);
                 }
                 if (e.getCode()== KeyCode.SPACE){
                     System.out.println("SHOOT");
                     firing2.stop();
-                    //shoot_cap = true;
-                    //shoot(Canon1);
                 }
                 if (e.getCode()== KeyCode.N){
                     System.out.println("RIGHT");
-                    //transition3.play();
-                    //Canon1.move_right();
                     right_cap_2 = false;
                 }
                 if (e.getCode()== KeyCode.V){
                     System.out.println("LEFT");
-                    //transition4.play();
-                    //Canon1.move_left();
                     left_cap_2 = false;
                 }
                 if (e.getCode()== KeyCode.G){
                     System.out.println("UP");
                     System.out.println(Canon1.getX());
-                    //transition5.play();
-                    //Canon1.move_up();
                     up_cap_2 = false;
                 }
                 if (e.getCode()== KeyCode.B){
                     System.out.println("DOWN");
-                    //transition2.play();
-                    //Canon1.move_down(Frame1);
                     down_cap_2 = false;
                 }
 
@@ -382,12 +381,6 @@ public class Game extends Application {
 
 
 
-
-
-
-
-
-
         //Canon1.rec.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
         //Canon1.rec.addEventFilter(KeyEvent.KEY_PRESSED, eventHandlerdown);
 
@@ -397,17 +390,8 @@ public class Game extends Application {
 
         root.getChildren().add(Canon1.rec);
         root.getChildren().add(Canon2.rec);
-        /*
-        root.getChildren().add(Alien1.rec);
-        root.getChildren().add(Alien2.rec);
-        root.getChildren().add(Alien3.rec);
-        root.getChildren().add(Alien4.rec);
-        root.getChildren().add(Alien5.rec);
-        root.getChildren().add(Alien6.rec);
-        root.getChildren().add(Alien7.rec);
-        */
-         /**/
-        root.getChildren().add(d2);
+
+        //root.getChildren().add(d2);
 
 
 
@@ -419,21 +403,19 @@ public class Game extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                /*Alien1.move_left();
-                Alien6.move_right();
-                Alien2.move_right();*/
 
                 //shoot();
+
                 int min = 0;
                 int max = 4;
-                //a= (int)Math.floor(Math.random()*(max-min+1)+min);
+
                 if (a >23){
                     a = 0;
                 }
                 else{
                     a++;
                 }
-                //a = Math.round(Math.random());
+
                 System.out.println(a);
                 if (a==1.0){
                     random_move = false;}
@@ -450,13 +432,38 @@ public class Game extends Application {
                         s.dead = true;
                         System.out.println("DEAD ALIEN 1");
                     }
+                    });
+                });
+                AlienDarts.forEach(s-> {
+                    s.move_up();
+                    Canons.forEach(c->{
+                        if (s.getBoundsInParent().intersects(c.rec.getBoundsInParent())) {
+                            c.dead = true;
+                            s.dead = true;
+                            System.out.println("DEAD ALIEN 1");
+                        }
+                    });
                 });
 
 
 
+
+//Alien shoot
+                y+= 0.01;
+                Aliens.forEach(s->{
+
+
+                    if (y>0.4 && y < 0.42){
+                        if (Math.random()> 0.95){
+
+                        shoot_alien(s);
+
+                        }
+                    }
+                    if (y>1){
+                        y = 0;
+                    }
                 });
-
-
 
                 remove_dead();
 
@@ -470,7 +477,7 @@ public class Game extends Application {
 
 
         timer.start();
-        //timer.setCycle(23);
+
 
 
 
@@ -480,51 +487,20 @@ public class Game extends Application {
         return root.getChildren().stream().map(n -> (Dart)n).collect(Collectors .toList());
     }*/
 
-    /*public void KeyReleased(){
-        if (key == 'D')
-    }*/
+    /***
+     * La function update va s'éxécuter à chaque itération du timer
+     */
     public void update() {
 
-        /*scene.setOnKeyPressed(e->{
-            switch(e.getCode()){
-                case D:
-                    shoot_cap = true;
-                    break;
-
-                case UP:
-                    down_cap = true;
-                    break;
-                case DOWN:
-                    up_cap = true;
-                    break;
-
-                case RIGHT:
-                    right_cap = true;
-                    //transition1.play();
-                    break;
-                case LEFT:
-                    left_cap = true;
-                    break;
-
-            }
-        });*/
 
         if (a==18.0 | a == 19.0 | a== 20.0 | a== 21.0 | a== 22.0 | a== 23.0) {
 
-            //System.out.println("LEFT");
-            //Alien1.move_left();
             Aliens.forEach(s ->{
                 s.move_down();
             });
-
-
-
         }
-
         if (  a==0.0 | a == 1.0 | a== 2.0 | a== 3.0 | a== 4.0 | a==5.0){
 
-            //System.out.println("RIGHT");
-            //Alien1.move_right();
             Aliens.forEach(s ->{
                 s.move_right();
             });
@@ -532,9 +508,9 @@ public class Game extends Application {
 
         if (  a==12.0 | a == 13.0 | a== 14.0 | a== 15.0 | a== 16.0 | a== 17.0){
 
-            //System.out.println("RIGHT");
             Aliens.forEach(s ->{
                 s.move_left();
+                //shoot_alien(s);
             });
         }
 
@@ -546,70 +522,39 @@ public class Game extends Application {
             });
 
         }
-            /*darts.forEach(s -> {
-                s.move_up();
-            });*/
 
-        //System.out.println("UPDATE");
 
         if (left_cap_1){
-
-
             Canon1.move_left(Frame1);
-            //shoot(Canon1);
-            System.out.println("BoooooooooooooOOOOOOOOOOTH");
-            //left_cap = false;
-            //shoot_cap = false;
         }
 
         if (right_cap_1){
-
-
             Canon1.move_right(Frame1);
-            //shoot(Canon1);
-            System.out.println("BoooooooooooooOOOOOOOOOOTH");
-            //transition1.play();
-            //right_cap = false;
-            //shoot_cap = false;
         }
         if (up_cap_1){
-
-
             Canon1.move_up(Frame1);
-            //up_cap= false;
         }
         if (down_cap_1){
-
-
             Canon1.move_down(Frame1);
-            //down_cap = false;
         }
 
         if (left_cap_2){
 
 
             Canon2.move_left(Frame1);
-            //shoot(Canon1);
-            System.out.println("BoooooooooooooOOOOOOOOOOTH");
-            //left_cap = false;
-            //shoot_cap = false;
         }
 
         if (right_cap_2){
 
 
             Canon2.move_right(Frame1);
-            //shoot(Canon1);
-            System.out.println("BoooooooooooooOOOOOOOOOOTH");
-            //transition1.play();
-            //right_cap = false;
-            //shoot_cap = false;
+
         }
         if (up_cap_2){
 
 
             Canon2.move_up(Frame1);
-            //up_cap= false;
+
         }
         if (down_cap_2){
 
