@@ -16,21 +16,19 @@ import javafx.event.EventHandler;
 
 
 public class Main extends Application {
-
-    private boolean leftPressed;
-    private boolean rightPressed;
-    private boolean spacePressed;
+    private Player player1, player2;
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        Canvas canvas = new Canvas(800, 600);
+        Canvas canvas = new Canvas(800, 700);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         StackPane root = new StackPane();
         root.getChildren().add(canvas);
+        root.setStyle("-fx-background-color: black;");
 
         Scene scene = new Scene(root);
 
@@ -40,7 +38,10 @@ public class Main extends Application {
         primaryStage.show();
 
 
-        GameEngine gameEngine = new GameEngine(800, 600, gc);
+        GameEngine gameEngine = new GameEngine(800, 700, gc);
+        player1 = gameEngine.getPlayer1();
+        player2 = gameEngine.getPlayer2();
+
         InputHandler inputHandler = new InputHandler();
         scene.setOnKeyPressed(inputHandler);
         scene.setOnKeyReleased(inputHandler);
@@ -48,8 +49,16 @@ public class Main extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gameEngine.update(inputHandler.getActiveKeys());
-                gameEngine.draw(gc);
+                gc.clearRect(0, 0, gameEngine.getWidth(), gameEngine.getHeight());
+                gameEngine.update(inputHandler.getActiveKeys(),gc,player1,player2);
+                gameEngine.update(inputHandler.getActiveKeys(),gc,player2,player1);
+                gameEngine.draw(gc,player1);
+                gc.save();
+                gc.rotate(180);
+                gc.translate(-gameEngine.getWidth(),-gameEngine.getHeight());
+                gameEngine.draw(gc,player2);
+                gc.restore();
+
             }
         };
         timer.start();

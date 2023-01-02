@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 
 public class Cannon {
     private int x;
@@ -14,7 +15,7 @@ public class Cannon {
     private boolean isFiring;
     private boolean isAlive;
     final Image cannonImage;
-    final ImageView cannonView;
+    private ImageView cannonView;
     private long lastFireTime;
 
     public Cannon(int x, int y, int width, int height) {
@@ -73,6 +74,9 @@ public class Cannon {
     }
 
     public ImageView getCannonView() {
+
         return cannonView;
     }
+
+
 }

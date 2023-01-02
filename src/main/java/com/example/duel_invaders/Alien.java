@@ -18,7 +18,7 @@ public class Alien {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.alienImage = new Image("C:\\Users\\etudiant\\IdeaProjects\\Duel_Invaders\\src\\main\\java\\com\\example\\duel_invaders\\png-clipart-space-invaders-extreme-2-arcade-game-alien-invaders-from-space-space-invaders-angle-white.png");
+        this.alienImage = new Image("C:\\Users\\etudiant\\IdeaProjects\\Duel_Invaders\\src\\main\\java\\com\\example\\duel_invaders\\alienwhite.png");
         this.alienView = new ImageView(alienImage);
         this.isAlive = true;
     }

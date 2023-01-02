@@ -22,6 +22,9 @@ public class Dart {
     public void moveUp() {
         y -= 5;
     }
+    public void moveDown() {
+        y += 5;
+    }
 
     public void kill() {
         isAlive = false;
