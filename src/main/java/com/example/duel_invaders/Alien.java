@@ -58,6 +58,10 @@ public class Alien {
     public Bounds getBounds() {
         return new Rectangle(x, y, width, height).getBoundsInLocal();
     }
+    public Bounds getOppositeBounds(int sceneWidth, int sceneHeight) {
+        return new Rectangle(sceneWidth-x-width, sceneHeight-y-height, width, height).getBoundsInLocal();
+    }
+
     public ImageView getAlienView() {
         return alienView;
     }

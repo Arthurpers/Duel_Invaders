@@ -121,7 +121,7 @@ public class GameEngine {
         }
         for (Alien alien : oppositePlayer.getAliens()) {
             for (Dart dart : player.getDarts()) {
-                if (dart.getBounds().intersects(alien.getBounds())) {
+                if (dart.getBounds().intersects(alien.getOppositeBounds(width,height))) {
                     dart.kill();
                     alien.kill();
                     break;
@@ -133,7 +133,9 @@ public class GameEngine {
 
 
     public void draw(GraphicsContext gc,Player player) {
-        gc.drawImage(player.getCannon().getCannonView().getImage(), player.getCannon().getX(), player.getCannon().getY(), player.getCannon().getWidth(), player.getCannon().getHeight());
+        ImageView iv = player.getCannon().getCannonView();
+        iv.setRotate(30);
+        gc.drawImage(iv.getImage(), player.getCannon().getX(), player.getCannon().getY(), player.getCannon().getWidth(), player.getCannon().getHeight());
         player.getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
         gc.setFill(Color.RED);
         player.getDarts().forEach(dart -> gc.fillRect(dart.getX(), dart.getY(), dart.getWidth(), dart.getHeight()));
