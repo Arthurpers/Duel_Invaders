@@ -22,7 +22,6 @@ public class Alien {
         this.alienView = new ImageView(alienImage);
         this.isAlive = true;
     }
-
     public void moveDown() {
         y += 5;
     }

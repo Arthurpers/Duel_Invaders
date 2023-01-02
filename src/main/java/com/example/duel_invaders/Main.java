@@ -50,14 +50,15 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 gc.clearRect(0, 0, gameEngine.getWidth(), gameEngine.getHeight());
-                gameEngine.update(inputHandler.getActiveKeys(),gc,player1,player2);
-                gameEngine.update(inputHandler.getActiveKeys(),gc,player2,player1);
+                gameEngine.update(inputHandler.getActiveKeys(),gc,player1,player2,now);
+                gameEngine.update(inputHandler.getActiveKeys(),gc,player2,player1,now);
                 gameEngine.draw(gc,player1);
                 gc.save();
                 gc.rotate(180);
                 gc.translate(-gameEngine.getWidth(),-gameEngine.getHeight());
                 gameEngine.draw(gc,player2);
                 gc.restore();
+
 
             }
         };

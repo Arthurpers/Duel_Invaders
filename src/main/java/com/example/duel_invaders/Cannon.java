@@ -43,38 +43,25 @@ public class Cannon {
     public void fire() {
         lastFireTime = System.currentTimeMillis();
     }
-
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
     }
-
     public int getWidth() {
         return width;
     }
-
     public int getHeight() {
         return height;
     }
-
-    public boolean isFiring() {
-        return isFiring;
-    }
-
-
     public void kill() {
         isAlive = false;
     }
-
     public Bounds getBounds() {
         return new Rectangle(x, y, width, height).getBoundsInLocal();
     }
-
     public ImageView getCannonView() {
-
         return cannonView;
     }
 

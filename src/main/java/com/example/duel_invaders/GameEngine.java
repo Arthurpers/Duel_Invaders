@@ -9,51 +9,22 @@ import java.util.ArrayList;
 
 
 public class GameEngine {
-    private static final int CANNON_SPEED = 5;
-    private static final int ALIEN_SPEED = 1;
-    private static final int MISSILE_SPEED = 5;
-
-    final int width;
-    final int height;
-
-    private Cannon cannon1, cannon2;
-
-    private List<Alien> aliens1, aliens2, allAliens;
-    private List<Dart> darts1, darts2, allDarts;
-
+    private int width;
+    private int height;
+    private GameSetup gamesetup;
     private GraphicsContext gc;
     private Player player1, player2;
-
+    long now, last_update;
 
     public GameEngine(int width, int height, GraphicsContext gc) {
         this.width = width;
         this.height = height;
         this.gc = gc;
 
-        cannon1 = new Cannon(width / 2, height - 50, 40, 40);
-        aliens1 = new ArrayList<>();
-        darts1 = new ArrayList<>();
-        Player player1 = new Player(aliens1,darts1,cannon1,"RIGHT","LEFT","UP");
+        gamesetup = new GameSetup(width,height);
+        this.player1 = gamesetup.getPlayer1();
+        this.player2 = gamesetup.getPlayer2();
 
-        cannon2 = new Cannon(width / 2,  height-50, 40, 40);
-        aliens2 = new ArrayList<>();
-        darts2 = new ArrayList<>();
-        Player player2 = new Player(aliens2,darts2,cannon2,"D","Q","Z");
-
-        this.player1 = player1;
-        this.player2 = player2;
-
-        int xi = 50;
-        int yi = height/2 +10;
-        int size_alien = 35;
-        for (int i = 0; i <= 3; i++) {
-            for (int j = 0; j <= 10; j++) {
-                Alien alien1 = new Alien(xi + j * (size_alien+3), yi + i * (size_alien+3), size_alien, size_alien);
-                Alien alien2 = new Alien(xi + j * (size_alien+3), yi + i * (size_alien+3), size_alien, size_alien);
-                aliens1.add(alien1);
-                aliens2.add(alien2);
-            }
-        }
     }
 
     public Player getPlayer1() {
@@ -72,7 +43,8 @@ public class GameEngine {
         return height;
     }
 
-    public void update(Set<KeyCode> activeKeys, GraphicsContext gc, Player player, Player oppositePlayer) {
+
+    public void update(Set<KeyCode> activeKeys, GraphicsContext gc, Player player, Player oppositePlayer, long now) {
         if (activeKeys.contains(KeyCode.valueOf(player.getKeyLeft()))) {
             player.getCannon().moveLeft();
         } else if (activeKeys.contains(KeyCode.valueOf(player.getKeyRight()))) {
@@ -87,7 +59,7 @@ public class GameEngine {
 
         player.getDarts().forEach(Dart::moveUp);
 
-        player.getAliens().forEach(alien -> {
+        player.getAlienWave().getAliens().forEach(alien -> {
             if (alien.getY() > height) {
                 alien.kill();
                 //ET PARTIE PERDUE
@@ -100,16 +72,15 @@ public class GameEngine {
             }
         });
 
-        player.getAliens().removeIf(alien -> !alien.isAlive());
+        player.getAlienWave().getAliens().removeIf(alien -> !alien.isAlive());
         player.getDarts().removeIf(dart -> !dart.isAlive());
 
-        for (Alien alien : player.getAliens()) {
+        for (Alien alien : player.getAlienWave().getAliens()) {
             if (player.getCannon().getBounds().intersects(alien.getBounds())) {
                 player.getCannon().kill();
                 alien.kill();
                 break;
             }
-
             for (Dart dart : player.getDarts()) {
                 if (dart.getBounds().intersects(alien.getBounds())) {
                     dart.kill();
@@ -119,7 +90,7 @@ public class GameEngine {
             }
 
         }
-        for (Alien alien : oppositePlayer.getAliens()) {
+        for (Alien alien : oppositePlayer.getAlienWave().getAliens()) {
             for (Dart dart : player.getDarts()) {
                 if (dart.getBounds().intersects(alien.getOppositeBounds(width,height))) {
                     dart.kill();
@@ -129,14 +100,22 @@ public class GameEngine {
             }
 
         }
-    }
+        if (now - player.getAlienWave().getLast_update() >= 700_000_000){
+            if(player.getAlienWave().shouldGoDown(width,player.getAlienWave().getClosestToBorder())){
+                player.getAlienWave().moveDown();
+            } else {
+                player.getAlienWave().animateAlien();
+            }
+            player.getAlienWave().setLast_update(now);
+            }
+        }
 
 
     public void draw(GraphicsContext gc,Player player) {
         ImageView iv = player.getCannon().getCannonView();
         iv.setRotate(30);
         gc.drawImage(iv.getImage(), player.getCannon().getX(), player.getCannon().getY(), player.getCannon().getWidth(), player.getCannon().getHeight());
-        player.getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
+        player.getAlienWave().getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
         gc.setFill(Color.RED);
         player.getDarts().forEach(dart -> gc.fillRect(dart.getX(), dart.getY(), dart.getWidth(), dart.getHeight()));
 
