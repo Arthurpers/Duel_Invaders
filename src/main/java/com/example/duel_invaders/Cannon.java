@@ -1,15 +1,9 @@
 package com.example.duel_invaders;
 
 import javafx.geometry.Bounds;
-import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.transform.Rotate;
-
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 public class Cannon {
     private int x;

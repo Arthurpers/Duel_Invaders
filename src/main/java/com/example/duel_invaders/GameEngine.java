@@ -1,12 +1,10 @@
 package com.example.duel_invaders;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import java.util.*;
-import java.util.ArrayList;
+
 
 
 public class GameEngine {

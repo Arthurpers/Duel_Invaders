@@ -1,7 +1,6 @@
 package com.example.duel_invaders;
 
 import javafx.geometry.Bounds;
-import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 public class Dart {

@@ -3,10 +3,6 @@ package com.example.duel_invaders;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
-import java.util.stream.Collectors;
 import java.util.*;
 
 
