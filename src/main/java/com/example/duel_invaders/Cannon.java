@@ -7,6 +7,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class Cannon {
     private int x;
     private int y;
@@ -25,7 +29,8 @@ public class Cannon {
         this.height = height;
         this.lastFireTime = 0;
         this.isAlive = true;
-        this.cannonImage = new Image("C:\\Users\\etudiant\\IdeaProjects\\Duel_Invaders\\src\\main\\java\\com\\example\\duel_invaders\\pngegg.png");
+
+        this.cannonImage = new Image("file:src/main/java/com/example/duel_invaders/assets/pngegg.png");
         this.cannonView = new ImageView(cannonImage);
     }
 

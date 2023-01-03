@@ -1,6 +1,7 @@
 package com.example.duel_invaders;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 
 
 public class GameEngine {
+    private boolean gameOn;
     private int width;
     private int height;
     private GameSetup gamesetup;
@@ -16,10 +18,11 @@ public class GameEngine {
     private Player player1, player2;
     long now, last_update;
 
-    public GameEngine(int width, int height, GraphicsContext gc) {
+    public GameEngine(int width, int height, GraphicsContext gc, boolean gameOn) {
         this.width = width;
         this.height = height;
         this.gc = gc;
+        this.gameOn = gameOn;
 
         gamesetup = new GameSetup(width,height);
         this.player1 = gamesetup.getPlayer1();
@@ -43,6 +46,13 @@ public class GameEngine {
         return height;
     }
 
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public void setGameOn(boolean gameOn) {
+        this.gameOn = gameOn;
+    }
 
     public void update(Set<KeyCode> activeKeys, GraphicsContext gc, Player player, Player oppositePlayer, long now) {
         if (activeKeys.contains(KeyCode.valueOf(player.getKeyLeft()))) {
@@ -62,7 +72,7 @@ public class GameEngine {
         player.getAlienWave().getAliens().forEach(alien -> {
             if (alien.getY() > height) {
                 alien.kill();
-                //ET PARTIE PERDUE
+                gameOn = false;
             }
         });
 
@@ -78,7 +88,7 @@ public class GameEngine {
         for (Alien alien : player.getAlienWave().getAliens()) {
             if (player.getCannon().getBounds().intersects(alien.getBounds())) {
                 player.getCannon().kill();
-                alien.kill();
+                gameOn = false;
                 break;
             }
             for (Dart dart : player.getDarts()) {
@@ -112,9 +122,7 @@ public class GameEngine {
 
 
     public void draw(GraphicsContext gc,Player player) {
-        ImageView iv = player.getCannon().getCannonView();
-        iv.setRotate(30);
-        gc.drawImage(iv.getImage(), player.getCannon().getX(), player.getCannon().getY(), player.getCannon().getWidth(), player.getCannon().getHeight());
+        gc.drawImage(player.getCannon().getCannonView().getImage(), player.getCannon().getX(), player.getCannon().getY(), player.getCannon().getWidth(), player.getCannon().getHeight());
         player.getAlienWave().getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
         gc.setFill(Color.RED);
         player.getDarts().forEach(dart -> gc.fillRect(dart.getX(), dart.getY(), dart.getWidth(), dart.getHeight()));

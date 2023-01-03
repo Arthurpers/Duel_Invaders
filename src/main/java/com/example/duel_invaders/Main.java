@@ -1,9 +1,13 @@
 package com.example.duel_invaders;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
@@ -11,58 +15,81 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
 
-
-
-
-
 public class Main extends Application {
     private Player player1, player2;
+    private boolean GameOn = false;
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
+        Pane root1 = new Pane();
+        Pane root2 = new Pane();
+
+        Scene scene1 = new Scene(root1, 800,700);
+        Scene scene2 = new Scene(root2,800,700);
+
+        Button startButton = new Button("Start Game");
+        startButton.setBackground(Background.fill(Color.BLACK));
+        startButton.setFont(new Font( 40));
+        startButton.setStyle("-fx-text-fill: white");
+        startButton.setLayoutX(270);
+        startButton.setLayoutY(550);
+        startButton.setPrefHeight(100);
+        startButton.setPrefWidth(260);
+        root1.getChildren().add(startButton);
+        startButton.setOnAction(event -> {
+            primaryStage.setScene(scene2);
+        });
+
         Canvas canvas = new Canvas(800, 700);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        root2.getChildren().add(canvas);
 
-        StackPane root = new StackPane();
-        root.getChildren().add(canvas);
-        root.setStyle("-fx-background-color: black;");
-
-        Scene scene = new Scene(root);
-
-
+        root2.setStyle("-fx-background-color: black;");
+        Image img = new Image("https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/08/Space-Invaders-Monster.jpg",800,700,false,false);
+        BackgroundImage bImg = new BackgroundImage(img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        root1.setBackground(bGround);
         primaryStage.setTitle("Duel Invaders");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(scene1);
         primaryStage.show();
 
-
-        GameEngine gameEngine = new GameEngine(800, 700, gc);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        GameEngine gameEngine = new GameEngine(800, 700, gc, true);
         player1 = gameEngine.getPlayer1();
         player2 = gameEngine.getPlayer2();
 
         InputHandler inputHandler = new InputHandler();
-        scene.setOnKeyPressed(inputHandler);
-        scene.setOnKeyReleased(inputHandler);
+        scene2.setOnKeyPressed(inputHandler);
+        scene2.setOnKeyReleased(inputHandler);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gc.clearRect(0, 0, gameEngine.getWidth(), gameEngine.getHeight());
-                gameEngine.update(inputHandler.getActiveKeys(),gc,player1,player2,now);
-                gameEngine.update(inputHandler.getActiveKeys(),gc,player2,player1,now);
-                gameEngine.draw(gc,player1);
-                gc.save();
-                gc.rotate(180);
-                gc.translate(-gameEngine.getWidth(),-gameEngine.getHeight());
-                gameEngine.draw(gc,player2);
-                gc.restore();
-
-
+                if (gameEngine.isGameOn()) {
+                    gc.clearRect(0, 0, gameEngine.getWidth(), gameEngine.getHeight());
+                    gameEngine.update(inputHandler.getActiveKeys(), gc, player1, player2, now);
+                    gameEngine.update(inputHandler.getActiveKeys(), gc, player2, player1, now);
+                    gameEngine.draw(gc, player1);
+                    gc.save();
+                    gc.rotate(180);
+                    gc.translate(-gameEngine.getWidth(), -gameEngine.getHeight());
+                    gameEngine.draw(gc, player2);
+                    gc.restore();
+                }
+                else {
+                    this.stop();
+                }
             }
         };
         timer.start();
+
     }
+
 }
 

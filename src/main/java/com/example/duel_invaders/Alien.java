@@ -18,7 +18,7 @@ public class Alien {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.alienImage = new Image("C:\\Users\\etudiant\\IdeaProjects\\Duel_Invaders\\src\\main\\java\\com\\example\\duel_invaders\\alienwhite.png");
+        this.alienImage = new Image("file:src/main/java/com/example/duel_invaders/assets/alienwhite.png");
         this.alienView = new ImageView(alienImage);
         this.isAlive = true;
     }
