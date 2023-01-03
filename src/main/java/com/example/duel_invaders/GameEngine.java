@@ -24,10 +24,11 @@ public class GameEngine {
         this.height = height;
         this.gc = gc;
         this.gameOn = gameOn;
-        this.player1 = gamesetup.getPlayer1();
-        this.player2 = gamesetup.getPlayer2();
 
         gamesetup = new GameSetup(width,height);
+
+        this.player1 = gamesetup.getPlayer1();
+        this.player2 = gamesetup.getPlayer2();
     }
 
     public Player getPlayer1() {
