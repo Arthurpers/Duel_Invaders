@@ -5,6 +5,10 @@ import javafx.scene.input.KeyCode;
 
 import java.util.List;
 
+/**
+ * Classe permettant de regrouper les entités liées à un joueur : son canon, sa vague d'alien et ses tirs
+ * Permet également de définir ses touches du clavier à utiliser pour controler son canon
+ */
 public class Player {
     private AlienWave alienWave;
     private List<Dart> darts;

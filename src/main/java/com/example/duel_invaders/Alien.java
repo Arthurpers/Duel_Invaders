@@ -4,6 +4,10 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+/**
+ * Classe permettant de gérer un alien
+ */
 public class Alien {
     private int x;
     private int y;
@@ -22,18 +26,6 @@ public class Alien {
         this.alienView = new ImageView(alienImage);
         this.isAlive = true;
     }
-    public void moveDown() {
-        y += 5;
-    }
-
-    public void moveLeft() {
-        x -= 5;
-    }
-
-    public void moveRight() {
-        x += 5;
-    }
-
     public void kill() {
         isAlive = false;
     }
@@ -57,6 +49,9 @@ public class Alien {
     public Bounds getBounds() {
         return new Rectangle(x, y, width, height).getBoundsInLocal();
     }
+    /**
+     * Donne les Bounds à partir des coordonnées du plan de base après avoir effectué une rotation à 180 degrés du plan
+     */
     public Bounds getOppositeBounds(int sceneWidth, int sceneHeight) {
         return new Rectangle(sceneWidth-x-width, sceneHeight-y-height, width, height).getBoundsInLocal();
     }

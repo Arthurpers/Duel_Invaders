@@ -5,8 +5,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import java.util.*;
 
-
-
+/**
+ * Classe permettant d'obtenir la liste des touche du clavier actives
+ */
 public class InputHandler implements EventHandler<KeyEvent> {
     final private Set<KeyCode> activeKeys = new HashSet<>();
 

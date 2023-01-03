@@ -1,6 +1,5 @@
 package com.example.duel_invaders;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,10 +10,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.event.EventHandler;
 
+/**
+ * Permet de lancer le jeu
+ * Création des scènes et du AnimationTimer
+ */
 public class Main extends Application {
     private Player player1, player2;
     private boolean GameOn = false;

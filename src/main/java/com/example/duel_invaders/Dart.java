@@ -3,6 +3,9 @@ package com.example.duel_invaders;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Classe permettant de gérer un missile tiré par un canon
+ */
 public class Dart {
     private int x;
     private int y;
@@ -18,11 +21,11 @@ public class Dart {
         this.isAlive = true;
     }
 
+    /**
+     * Déplacement vers le haut du dart
+     */
     public void moveUp() {
         y -= 5;
-    }
-    public void moveDown() {
-        y += 5;
     }
 
     public void kill() {

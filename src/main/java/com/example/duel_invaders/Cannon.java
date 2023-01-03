@@ -5,12 +5,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Classe permettant de gérer un canon
+ */
 public class Cannon {
     private int x;
     private int y;
     private int width;
     private int height;
-    private boolean isFiring;
     private boolean isAlive;
     final Image cannonImage;
     private ImageView cannonView;
@@ -28,17 +30,31 @@ public class Cannon {
         this.cannonView = new ImageView(cannonImage);
     }
 
+    /**
+     * Déplacement du canon vers la gauche
+     */
     public void moveLeft() {
         x -= 5;
     }
 
+    /**
+     * Déplacement du canon vers la droite
+     */
     public void moveRight() {
         x += 5;
     }
 
+    /**
+     * Vérifie si le délai de récupération du canon est terminé pour pouvoir tirer à nouveau
+     * @return bool
+     */
     public boolean canFire() {
         return System.currentTimeMillis() - lastFireTime >= 700;
     }
+
+    /**
+     * Lance un nouveau délai de récupération
+     */
     public void fire() {
         lastFireTime = System.currentTimeMillis();
     }

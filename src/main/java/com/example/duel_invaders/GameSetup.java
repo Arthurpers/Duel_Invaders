@@ -3,6 +3,9 @@ package com.example.duel_invaders;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe permettant d'initialiser les joueurs avec leur canon, leur vague d'alien et leurs darts au lancement du jeu
+ */
 public class GameSetup {
 
     private Cannon cannon1, cannon2;

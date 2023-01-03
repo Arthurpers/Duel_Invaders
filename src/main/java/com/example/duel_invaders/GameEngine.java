@@ -6,7 +6,10 @@ import javafx.scene.paint.Color;
 import java.util.*;
 
 
-
+/**
+ * Classe permettant de verifier les interactions entre les entités affichées, la mise à jour de ces entités et le dessin
+ * de ces entités à chaque boucle du timer
+ */
 public class GameEngine {
     private boolean gameOn;
     private int width;
@@ -21,11 +24,10 @@ public class GameEngine {
         this.height = height;
         this.gc = gc;
         this.gameOn = gameOn;
-
-        gamesetup = new GameSetup(width,height);
         this.player1 = gamesetup.getPlayer1();
         this.player2 = gamesetup.getPlayer2();
 
+        gamesetup = new GameSetup(width,height);
     }
 
     public Player getPlayer1() {
@@ -52,6 +54,14 @@ public class GameEngine {
         this.gameOn = gameOn;
     }
 
+    /**
+     * Vérifie les intersections entre entités, applique les déplacements et met à jour les entités
+     * @param activeKeys touches du claviers activés
+     * @param gc
+     * @param player joueur principal considéré pour l'update
+     * @param oppositePlayer joueur opposé considéré pour l'update
+     * @param now temps donné par le timer
+     */
     public void update(Set<KeyCode> activeKeys, GraphicsContext gc, Player player, Player oppositePlayer, long now) {
         if (activeKeys.contains(KeyCode.valueOf(player.getKeyLeft()))) {
             player.getCannon().moveLeft();
@@ -119,6 +129,11 @@ public class GameEngine {
         }
 
 
+    /**
+     * Dessine pour un joueur : son canon, ses darts et ses aliens
+     * @param gc
+     * @param player
+     */
     public void draw(GraphicsContext gc,Player player) {
         gc.drawImage(player.getCannon().getCannonView().getImage(), player.getCannon().getX(), player.getCannon().getY(), player.getCannon().getWidth(), player.getCannon().getHeight());
         player.getAlienWave().getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
