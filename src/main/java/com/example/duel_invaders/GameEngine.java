@@ -11,7 +11,7 @@ import java.util.*;
  * de ces entités à chaque boucle du timer
  */
 public class GameEngine {
-    private boolean gameOn;
+    private String gameState;
     private int width;
     private int height;
     private GameSetup gamesetup;
@@ -19,11 +19,11 @@ public class GameEngine {
     private Player player1, player2;
     long now, last_update;
 
-    public GameEngine(int width, int height, GraphicsContext gc, boolean gameOn) {
+    public GameEngine(int width, int height, GraphicsContext gc, String gameState) {
         this.width = width;
         this.height = height;
         this.gc = gc;
-        this.gameOn = gameOn;
+        this.gameState = gameState;
 
         gamesetup = new GameSetup(width,height);
 
@@ -47,12 +47,12 @@ public class GameEngine {
         return height;
     }
 
-    public boolean isGameOn() {
-        return gameOn;
+    public String getGameState() {
+        return gameState;
     }
 
-    public void setGameOn(boolean gameOn) {
-        this.gameOn = gameOn;
+    public void setGameState(String gameState) {
+        this.gameState = gameState;
     }
 
     /**
@@ -81,7 +81,7 @@ public class GameEngine {
         player.getAlienWave().getAliens().forEach(alien -> {
             if (alien.getY() > height) {
                 alien.kill();
-                gameOn = false;
+                gameState = "LOSE";
             }
         });
 
@@ -97,7 +97,7 @@ public class GameEngine {
         for (Alien alien : player.getAlienWave().getAliens()) {
             if (player.getCannon().getBounds().intersects(alien.getBounds())) {
                 player.getCannon().kill();
-                gameOn = false;
+                gameState = "LOSE";
                 break;
             }
             for (Dart dart : player.getDarts()) {
@@ -119,7 +119,15 @@ public class GameEngine {
             }
 
         }
-        if (now - player.getAlienWave().getLast_update() >= 700_000_000){
+        for (Dart dart : player.getDarts()) {
+            if (dart.getBounds().intersects(oppositePlayer.getCannon().getOppositeBounds(width,height))){
+                dart.kill();
+                oppositePlayer.getCannon().kill();
+                gameState = "LOSE";
+                break;
+            }
+        }
+        if (!player.getAlienWave().getAliens().isEmpty() && now - player.getAlienWave().getLast_update() >= 700_000_000){
             if(player.getAlienWave().shouldGoDown(width,player.getAlienWave().getClosestToBorder())){
                 player.getAlienWave().moveDown();
             } else {
@@ -127,6 +135,9 @@ public class GameEngine {
             }
             player.getAlienWave().setLast_update(now);
             }
+        if (player.getAlienWave().getAliens().isEmpty() && player2.getAlienWave().getAliens().isEmpty()){
+            gameState = "WIN";
+        }
         }
 
 
@@ -140,7 +151,6 @@ public class GameEngine {
         player.getAlienWave().getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
         gc.setFill(Color.RED);
         player.getDarts().forEach(dart -> gc.fillRect(dart.getX(), dart.getY(), dart.getWidth(), dart.getHeight()));
-
     }
 }
 

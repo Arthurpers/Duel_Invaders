@@ -80,5 +80,12 @@ public class Cannon {
         return cannonView;
     }
 
+    /**
+     * Donne les Bounds à partir des coordonnées du plan de base après avoir effectué une rotation à 180 degrés du plan
+     */
+    public Bounds getOppositeBounds(int sceneWidth, int sceneHeight) {
+        return new Rectangle(sceneWidth-x-width, sceneHeight-y-height, width, height).getBoundsInLocal();
+    }
+
 
 }

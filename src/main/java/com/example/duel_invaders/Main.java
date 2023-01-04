@@ -1,5 +1,6 @@
 package com.example.duel_invaders;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,6 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
@@ -17,7 +21,7 @@ import javafx.scene.image.Image;
  */
 public class Main extends Application {
     private Player player1, player2;
-    private boolean GameOn = false;
+    private String GameState;
     public static void main(String[] args) {
         launch(args);
     }
@@ -25,14 +29,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Pane root1 = new Pane();
-        Pane root2 = new Pane();
+        StackPane root2 = new StackPane();
 
         Scene scene1 = new Scene(root1, 800,700);
         Scene scene2 = new Scene(root2,800,700);
 
         Button startButton = new Button("Start Game");
         startButton.setBackground(Background.fill(Color.BLACK));
-        startButton.setFont(new Font( 40));
+        startButton.setFont(new Font("Lato", 40));
         startButton.setStyle("-fx-text-fill: white");
         startButton.setLayoutX(270);
         startButton.setLayoutY(550);
@@ -60,7 +64,7 @@ public class Main extends Application {
         primaryStage.show();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        GameEngine gameEngine = new GameEngine(800, 700, gc, true);
+        GameEngine gameEngine = new GameEngine(800, 700, gc, "ON");
         player1 = gameEngine.getPlayer1();
         player2 = gameEngine.getPlayer2();
 
@@ -71,7 +75,7 @@ public class Main extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (gameEngine.isGameOn()) {
+                if (gameEngine.getGameState().equals("ON")) {
                     gc.clearRect(0, 0, gameEngine.getWidth(), gameEngine.getHeight());
                     gameEngine.update(inputHandler.getActiveKeys(), gc, player1, player2, now);
                     gameEngine.update(inputHandler.getActiveKeys(), gc, player2, player1, now);
@@ -84,6 +88,20 @@ public class Main extends Application {
                 }
                 else {
                     this.stop();
+                    Text gameovertext = new Text();
+                    gameovertext.setTextAlignment(TextAlignment.CENTER);
+                    gameovertext.setFont(Font.font("Lato", FontWeight.BOLD, 40));
+                    gameovertext.setFill(Color.WHITE);
+                    gameovertext.setStroke(Color.GREEN);
+                    if (gameEngine.getGameState().equals("LOSE")) {
+                        gameovertext.setText("GAME OVER");
+                    }
+                    else {
+                        gameovertext.setText("YOU WIN");
+                    }
+                    StackPane.setAlignment(gameovertext, Pos.CENTER);
+                    root2.getChildren().add(gameovertext);
+
                 }
             }
         };
