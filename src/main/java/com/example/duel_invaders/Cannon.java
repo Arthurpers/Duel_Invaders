@@ -17,14 +17,17 @@ public class Cannon {
     final Image cannonImage;
     private ImageView cannonView;
     private long lastFireTime;
+    private int scenewidth, sceneheight;
 
-    public Cannon(int x, int y, int width, int height) {
+    public Cannon(int x, int y, int width, int height, int scenewidth, int sceneheight) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.lastFireTime = 0;
         this.isAlive = true;
+        this.scenewidth=scenewidth;
+        this.sceneheight=sceneheight;
 
         this.cannonImage = new Image("file:src/main/java/com/example/duel_invaders/assets/pngegg.png");
         this.cannonView = new ImageView(cannonImage);
@@ -34,14 +37,16 @@ public class Cannon {
      * Déplacement du canon vers la gauche
      */
     public void moveLeft() {
-        x -= 5;
+
+        setX(x-5);
     }
 
     /**
      * Déplacement du canon vers la droite
      */
     public void moveRight() {
-        x += 5;
+
+        setX(x+5);
     }
 
     /**
@@ -64,6 +69,17 @@ public class Cannon {
     public int getY() {
         return y;
     }
+
+    public void setX(int x) {
+        if (!(x+width+10 > scenewidth) && !(x<10)) {
+            this.x = x;
+        }
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getWidth() {
         return width;
     }

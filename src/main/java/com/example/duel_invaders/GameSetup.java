@@ -13,17 +13,17 @@ public class GameSetup {
     private List<Dart> darts1, darts2;
     private AlienWave alienWave1, alienWave2;
     private Player player1, player2;
-    public GameSetup(int width,int height) {
-        cannon1 = new Cannon(width / 2, height - 50, 40, 40);
+    public GameSetup(int scenewitdh,int sceneheight) {
+        cannon1 = new Cannon(scenewitdh / 2, sceneheight - 50, 40, 40,scenewitdh,sceneheight);
         aliens1 = new ArrayList<>();
         darts1 = new ArrayList<>();
 
-        cannon2 = new Cannon(width / 2, height - 50, 40, 40);
+        cannon2 = new Cannon(scenewitdh / 2, sceneheight - 50, 40, 40,scenewitdh,sceneheight);
         aliens2 = new ArrayList<>();
         darts2 = new ArrayList<>();
 
         int xi = 50;
-        int yi = height / 2 + 10;
+        int yi = sceneheight / 2 + 10;
         int size_alien = 35;
         for (int i = 0; i <= 3; i++) {
             for (int j = 0; j <= 10; j++) {
