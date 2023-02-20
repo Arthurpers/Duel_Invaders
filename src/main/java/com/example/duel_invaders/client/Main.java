@@ -37,7 +37,7 @@ public class Main extends Application {
         Scene scene2 = new Scene(root2,800,700);
 
         Button startButton = new Button("Start Game");
-        startButton.setBackground(Background.fill(Color.BLACK));
+        //startButton.setBackground(Background.fill(Color.BLACK));
         startButton.setFont(new Font("Lato", 40));
         startButton.setStyle("-fx-text-fill: white");
         startButton.setLayoutX(270);
