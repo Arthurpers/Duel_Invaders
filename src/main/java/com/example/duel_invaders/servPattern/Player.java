@@ -1,7 +1,5 @@
-package com.example.duel_invaders;
+package com.example.duel_invaders.servPattern;
 
-
-import javafx.scene.input.KeyCode;
 
 import java.util.List;
 
@@ -41,7 +39,6 @@ public class Player {
     public Cannon getCannon() {
         return cannon;
     }
-
 
 
     public void setDarts(List<Dart> darts) {

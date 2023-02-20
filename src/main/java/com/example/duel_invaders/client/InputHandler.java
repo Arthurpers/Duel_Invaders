@@ -1,4 +1,4 @@
-package com.example.duel_invaders;
+package com.example.duel_invaders.client;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;

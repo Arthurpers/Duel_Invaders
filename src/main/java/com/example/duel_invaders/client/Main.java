@@ -1,4 +1,6 @@
-package com.example.duel_invaders;
+package com.example.duel_invaders.client;
+import com.example.duel_invaders.servPattern.GameEngine;
+import com.example.duel_invaders.servPattern.Player;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package com.example.duel_invaders;
+package com.example.duel_invaders.servPattern;
 
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
