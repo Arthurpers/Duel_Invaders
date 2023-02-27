@@ -1,6 +1,9 @@
 package com.example.duel_invaders.client;
+import com.example.duel_invaders.launchPattern.ProtocolePingPong;
+import com.example.duel_invaders.launchPattern.UnContexte;
 import com.example.duel_invaders.servPattern.GameEngine;
 import com.example.duel_invaders.servPattern.Player;
+import com.example.duel_invaders.servPattern.ServeurTCP;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -39,7 +42,7 @@ public class Main extends Application {
         Button startButton = new Button("Start Game");
         //startButton.setBackground(Background.fill(Color.BLACK));
         startButton.setFont(new Font("Lato", 40));
-        startButton.setStyle("-fx-text-fill: white");
+        startButton.setStyle("-fx-text-fill: black");
         startButton.setLayoutX(270);
         startButton.setLayoutY(550);
         startButton.setPrefHeight(100);
@@ -73,6 +76,16 @@ public class Main extends Application {
         InputHandler inputHandler = new InputHandler();
         scene2.setOnKeyPressed(inputHandler);
         scene2.setOnKeyReleased(inputHandler);
+
+        ServeurTCP myServ = new ServeurTCP(new UnContexte() , new ProtocolePingPong() , 6666 );
+        myServ.start();
+
+        ClientTCP myClt = new ClientTCP("172.26.160.1", 6666 );
+
+        if ( myClt.connecterAuServeur() ) {
+            myClt.transmettreChaine("PING");
+            myClt.deconnecterDuServeur();
+        }
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
