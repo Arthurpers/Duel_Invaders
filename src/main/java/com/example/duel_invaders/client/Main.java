@@ -73,6 +73,10 @@ public class Main extends Application {
         InputHandler inputHandler = new InputHandler();
         scene2.setOnKeyPressed(inputHandler);
         scene2.setOnKeyReleased(inputHandler);
+        ////
+        ClientTCP myClt = new ClientTCP("localhost", 6666, inputHandler );
+        ////
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -87,6 +91,12 @@ public class Main extends Application {
                     gc.translate(-gameEngine.getWidth(), -gameEngine.getHeight());
                     gameEngine.draw(gc, player2);
                     gc.restore();
+                    if ( myClt.connecterAuServeur() ) {
+                        myClt.transmettreChaineConnexionPonctuelle(String.valueOf(myClt.inPut.getActiveKeys()));
+                        //myClt.transmettreChaine("PAF");
+                        //myClt.transmettreChaineConnexionPonctuelle("PAAF");
+                        //myClt.deconnecterDuServeur();
+                    }
                 }
                 else {
                     this.stop();

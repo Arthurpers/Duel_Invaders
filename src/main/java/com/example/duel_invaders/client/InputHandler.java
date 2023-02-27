@@ -20,7 +20,7 @@ public class InputHandler implements EventHandler<KeyEvent> {
         }
     }
 
-    public Set<KeyCode> getActiveKeys() {
+    public  Set<KeyCode> getActiveKeys() {
         return Collections.unmodifiableSet(activeKeys);
     }
 }

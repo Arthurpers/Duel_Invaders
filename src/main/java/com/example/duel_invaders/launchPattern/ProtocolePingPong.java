@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import com.example.duel_invaders.client.InputHandler;
 import com.example.duel_invaders.servPattern.IContext;
 import com.example.duel_invaders.servPattern.IProtocole;
 
@@ -24,10 +25,12 @@ public class ProtocolePingPong implements IProtocole {
 
             if ((inputReq = is.readLine()) != null) {
                 System.out.println(" Ordre Recu " + inputReq);
-                String chaines[] = inputReq.split(" ");
+                String chaines[] = inputReq.split(" ");//On splite l'ordre
 
                 if (chaines[0].contentEquals("PING")) {
                     valeurExpediee = "PONG";
+                    valeurExpediee = "NEw TEST 2";
+                    //valeurExpediee = InputHandler.getActiveKeys();
                     System.out.println(" Reponse serveur "	+ valeurExpediee);
                 }
                 os.println(valeurExpediee);

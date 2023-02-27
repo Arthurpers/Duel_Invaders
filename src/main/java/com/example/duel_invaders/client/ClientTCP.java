@@ -15,10 +15,14 @@ public class ClientTCP {
 
     private BufferedReader socIn;
 
+    public InputHandler inPut;
+
     /** Un client se connecte a un serveur identifie par un nom (unNomServeur), sur un port unNumero */
-    public  ClientTCP(String unNomServeur, int unNumero) {
+    public  ClientTCP(String unNomServeur, int unNumero, InputHandler inPut1) {
         numeroPort = unNumero;
         nomServeur = unNomServeur;
+        inPut= inPut1;
+
     }
 
     public boolean connecterAuServeur() {
