@@ -70,8 +70,17 @@ public class Main extends Application {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GameEngine gameEngine = new GameEngine(800, 700, gc, "ON");
+
+        //GameEngine.addObserver(player1)
+        //GameEngine.addObserver(player2)
         player1 = gameEngine.getPlayer1();
         player2 = gameEngine.getPlayer2();
+
+
+        //Ajout des observers au sujet Cannon
+        player1.getCannon().addObserver(gameEngine);
+        player2.getCannon().addObserver(gameEngine);
+
 
         InputHandler inputHandler = new InputHandler();
         scene2.setOnKeyPressed(inputHandler);
@@ -80,12 +89,12 @@ public class Main extends Application {
         ServeurTCP myServ = new ServeurTCP(new UnContexte() , new ProtocolePingPong() , 6666 );
         myServ.start();
 
-        ClientTCP myClt = new ClientTCP("172.26.160.1", 6666 );
-
+        ClientTCP myClt = new ClientTCP("localhost", 6666 );
+//Mon adresse IP est 192.168.9.49
         if ( myClt.connecterAuServeur() ) {
-            myClt.transmettreChaine("PING");
-            myClt.deconnecterDuServeur();
-        }
+
+
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -94,14 +103,28 @@ public class Main extends Application {
                     gc.clearRect(0, 0, gameEngine.getWidth(), gameEngine.getHeight());
                     gameEngine.update(inputHandler.getActiveKeys(), gc, player1, player2, now);
                     gameEngine.update(inputHandler.getActiveKeys(), gc, player2, player1, now);
+                    //myClt.transmettreChaine("PING");
+
+                    //myClt.transmettreChaine(String.valueOf(inputHandler.getActiveKeys()));
+                    System.out.println(gameEngine.getPlayer1().getCannon().getNbVies());
+                    System.out.println(gameEngine.getPlayer2().getCannon().getNbVies());
+
+                    ////Changement pour afficher els vies amenées par le pattern sujet/Observateur
+                    Text lives_text = new Text();
+                    lives_text.setFont(Font.font("Lato", FontWeight.BOLD, 40));
+                    lives_text.setFill(Color.WHITE);
+                    lives_text.setStroke(Color.GREEN);
+                    lives_text.setText(String.valueOf(gameEngine.getPlayer1().getCannon().getNbVies()));
+                    ////
+
+
                     gameEngine.draw(gc, player1);
                     gc.save();
                     gc.rotate(180);
                     gc.translate(-gameEngine.getWidth(), -gameEngine.getHeight());
                     gameEngine.draw(gc, player2);
                     gc.restore();
-                }
-                else {
+                } else {
                     this.stop();
                     Text gameovertext = new Text();
                     gameovertext.setTextAlignment(TextAlignment.CENTER);
@@ -110,8 +133,7 @@ public class Main extends Application {
                     gameovertext.setStroke(Color.GREEN);
                     if (gameEngine.getGameState().equals("LOSE")) {
                         gameovertext.setText("GAME OVER");
-                    }
-                    else {
+                    } else {
                         gameovertext.setText("YOU WIN");
                     }
                     StackPane.setAlignment(gameovertext, Pos.CENTER);
@@ -119,10 +141,15 @@ public class Main extends Application {
 
                 }
             }
+
         };
         timer.start();
 
     }
+
+
+
+}
 
 }
 

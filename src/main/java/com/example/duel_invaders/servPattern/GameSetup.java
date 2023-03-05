@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Classe permettant d'initialiser les joueurs avec leur canon, leur vague d'alien et leurs darts au lancement du jeu
+ *
+ * Par rapport à la modification du projet, on utilise le pattern sujet/Observateur pour implémenter un nombre de vies du joueur.
  */
 public class GameSetup {
 
@@ -14,11 +16,11 @@ public class GameSetup {
     private AlienWave alienWave1, alienWave2;
     private Player player1, player2;
     public GameSetup(int scenewitdh,int sceneheight) {
-        cannon1 = new Cannon(scenewitdh / 2, sceneheight - 50, 40, 40,scenewitdh,sceneheight);
+        cannon1 = new Cannon(scenewitdh / 2, sceneheight - 50, 40, 40,scenewitdh,sceneheight,2);
         aliens1 = new ArrayList<>();
         darts1 = new ArrayList<>();
 
-        cannon2 = new Cannon(scenewitdh / 2, sceneheight - 50, 40, 40,scenewitdh,sceneheight);
+        cannon2 = new Cannon(scenewitdh / 2, sceneheight - 50, 40, 40,scenewitdh,sceneheight,2);
         aliens2 = new ArrayList<>();
         darts2 = new ArrayList<>();
 

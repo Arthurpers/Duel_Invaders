@@ -5,21 +5,29 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Observable;
+
 /**
  * Classe permettant de gérer un canon
  */
-public class Cannon {
+public class Cannon extends Observable {
     private int x;
     private int y;
     private int width;
     private int height;
+
+    private int nbVies;
     private boolean isAlive;
     final Image cannonImage;
     private ImageView cannonView;
     private long lastFireTime;
     private int scenewidth, sceneheight;
 
-    public Cannon(int x, int y, int width, int height, int scenewidth, int sceneheight) {
+    public int getNbVies() {
+        return nbVies;
+    }
+
+    public Cannon(int x, int y, int width, int height, int scenewidth, int sceneheight, int nb) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -28,6 +36,7 @@ public class Cannon {
         this.isAlive = true;
         this.scenewidth=scenewidth;
         this.sceneheight=sceneheight;
+        this.nbVies = nb;
 
         this.cannonImage = new Image("file:src/main/java/com/example/duel_invaders/assets/pngegg.png");
         this.cannonView = new ImageView(cannonImage);
@@ -87,7 +96,12 @@ public class Cannon {
         return height;
     }
     public void kill() {
-        isAlive = false;
+        nbVies--;
+        if (nbVies <= 0) {
+            isAlive = false;
+            setChanged();
+            notifyObservers();
+        }
     }
     public Bounds getBounds() {
         return new Rectangle(x, y, width, height).getBoundsInLocal();

@@ -9,7 +9,7 @@ public class ServeurTCP extends Thread{
     private static int nbConnexions = 0;
 
     /** Maximum de connexions client autorisées */
-    private int maxConnexions;
+    //private int maxConnexions;
 
     private Socket clientSocket;
 
@@ -21,7 +21,7 @@ public class ServeurTCP extends Thread{
 
     public ServeurTCP(int unNumeroPort) {
         numeroPort = unNumeroPort;
-        maxConnexions = 10;
+
     }
 
     public ServeurTCP(IContext b,IProtocole p, int port) {
@@ -46,7 +46,7 @@ public class ServeurTCP extends Thread{
 
 
         /* On autorise maxConnexions traitements*/
-        while (nbConnexions <= maxConnexions) {
+        while (true ) {
             try {
                 System.out.println(" Attente du serveur pour la communication d'un client " );
                 clientSocket = serverSocket.accept();
@@ -56,18 +56,18 @@ public class ServeurTCP extends Thread{
                 System.out.println("Accept failed: " + serverSocket.getLocalPort() + ", " + e);
                 System.exit(1);
             }
-//            ProcessusTransaction st = new ProcessusTransaction( clientSocket , this );
-//            st.start();
+            ProcessusTransaction st = new ProcessusTransaction( clientSocket , this );
+            st.start();
         }
-        System.out.println("Deja " + nbConnexions + " clients. Maximum autorisé atteint");
+        //System.out.println("Deja " + nbConnexions + " clients. Maximum autorisé atteint");
 
-        try {
+        /*try {
             serverSocket.close();
             nbConnexions --;
         } catch (IOException e) {
             System.out.println("Could not close");
         }
-
+*/
     }
 
 

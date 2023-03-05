@@ -2,12 +2,14 @@ package com.example.duel_invaders.servPattern;
 
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Classe permettant de regrouper les entités liées à un joueur : son canon, sa vague d'alien et ses tirs
  * Permet également de définir ses touches du clavier à utiliser pour controler son canon
  */
-public class Player {
+public class Player implements Observer {
     private AlienWave alienWave;
     private List<Dart> darts;
     private Cannon cannon;
@@ -71,5 +73,10 @@ public class Player {
 
     public void setKeyFire(String keyFire) {
         this.keyFire = keyFire;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("Friendly fire.");
     }
 }

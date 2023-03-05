@@ -10,7 +10,7 @@ import java.util.*;
  * Classe permettant de verifier les interactions entre les entités affichées, la mise à jour de ces entités et le dessin
  * de ces entités à chaque boucle du timer
  */
-public class GameEngine {
+public class GameEngine implements Observer {
     private String gameState;
     private int width;
     private int height;
@@ -96,8 +96,10 @@ public class GameEngine {
 
         for (Alien alien : player.getAlienWave().getAliens()) {
             if (player.getCannon().getBounds().intersects(alien.getBounds())) {
+                alien.kill();
                 player.getCannon().kill();
-                gameState = "LOSE";
+                //gameState = "LOSE"; car le kill ne va enlever qu'une vie au player.
+                //Ici on implémente le pattern sujet/observateur et l'observateur est notifié.
                 break;
             }
             for (Dart dart : player.getDarts()) {
@@ -112,6 +114,7 @@ public class GameEngine {
         for (Alien alien : oppositePlayer.getAlienWave().getAliens()) {
             for (Dart dart : player.getDarts()) {
                 if (dart.getBounds().intersects(alien.getOppositeBounds(width,height))) {
+                    //notifyobservers that they are dead
                     dart.kill();
                     alien.kill();
                     break;
@@ -123,7 +126,9 @@ public class GameEngine {
             if (dart.getBounds().intersects(oppositePlayer.getCannon().getOppositeBounds(width,height))){
                 dart.kill();
                 oppositePlayer.getCannon().kill();
-                gameState = "LOSE";
+                //gameState = "LOSE"; car le kill va uniquement enlever une vie au player
+                //notifyObservers(gameState);
+                //dans le update de l'implements du joueur on peut kill mes joueurs
                 break;
             }
         }
@@ -151,6 +156,12 @@ public class GameEngine {
         player.getAlienWave().getAliens().forEach(alien -> gc.drawImage(alien.getAlienView().getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight()));
         gc.setFill(Color.RED);
         player.getDarts().forEach(dart -> gc.fillRect(dart.getX(), dart.getY(), dart.getWidth(), dart.getHeight()));
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        gameState = "LOSE";
+        System.out.println("Le joueur a perdu ses deux vies");
     }
 }
 
