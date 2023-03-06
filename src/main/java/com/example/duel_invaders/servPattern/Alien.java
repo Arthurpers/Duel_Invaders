@@ -13,21 +13,47 @@ public class Alien {
     private int y;
     private int width;
     private int height;
-    private boolean isAlive;
-    final Image alienImage;
-    final ImageView alienView;
 
-    public Alien(int x, int y, int width, int height) {
+    private int nbHits = 0;
+
+    public void setNbHits(int nbHits) {
+        this.nbHits++;
+    }
+
+    public int getNbHits() {
+        return nbHits;
+    }
+    public void incrementHits(){
+        this.nbHits++;
+    }
+
+    private boolean isAlive;
+
+    private IAlien_K_strategy shoot_strategy;
+    Image alienImage;
+    ImageView alienView;
+
+    //Public strategy Movement?
+
+    public Alien(int x, int y, int width, int height, IAlien_K_strategy shoot_strategy) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.alienImage = new Image("file:src/main/java/com/example/duel_invaders/assets/alienwhite.png");
-        this.alienView = new ImageView(alienImage);
+        this.shoot_strategy = shoot_strategy;
+
+        /*this.alienImage = new Image("file:src/main/java/com/example/duel_invaders/assets/alienwhite.png");
+        this.alienView = new ImageView(alienImage);*/
         this.isAlive = true;
     }
+
+    public void setImage(){
+        shoot_strategy.setImage(this);
+    }
     public void kill() {
-        isAlive = false;
+
+        shoot_strategy.kill(this);
+
     }
 
     public int getX() {

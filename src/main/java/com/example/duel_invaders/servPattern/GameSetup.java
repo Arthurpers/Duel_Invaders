@@ -27,13 +27,29 @@ public class GameSetup {
         int xi = 50;
         int yi = sceneheight / 2 + 10;
         int size_alien = 35;
-        for (int i = 0; i <= 3; i++) {
+
+
             for (int j = 0; j <= 10; j++) {
-                Alien alien1 = new Alien(xi + j * (size_alien + 3), yi + i * (size_alien + 3), size_alien, size_alien);
-                Alien alien2 = new Alien(xi + j * (size_alien + 3), yi + i * (size_alien + 3), size_alien, size_alien);
+                Alien alien1 = new Alien(xi + j * (size_alien + 3), yi + 1 * (size_alien + 3), size_alien, size_alien, new Shoot3_Alien_Strategy());
+                Alien alien2 = new Alien(xi + j * (size_alien + 3), yi + 1 * (size_alien + 3), size_alien, size_alien, new Shoot3_Alien_Strategy());
+
+                Alien alien3 = new Alien(xi + j * (size_alien + 3), yi + 2 * (size_alien + 3), size_alien, size_alien, new Shoot2_Alien_Strategy());
+                Alien alien4 = new Alien(xi + j * (size_alien + 3), yi + 2 * (size_alien + 3), size_alien, size_alien, new Shoot2_Alien_Strategy());
+
+                Alien alien5 = new Alien(xi + j * (size_alien + 3), yi + 3 * (size_alien + 3), size_alien, size_alien, new Shoot1_Alien_Strategy());
+                Alien alien6 = new Alien(xi + j * (size_alien + 3), yi + 3 * (size_alien + 3), size_alien, size_alien, new Shoot1_Alien_Strategy());
                 aliens1.add(alien1);
                 aliens2.add(alien2);
+                aliens1.add(alien3);
+                aliens2.add(alien4);
+                aliens1.add(alien5);
+                aliens2.add(alien6);
             }
+        for (Alien a:aliens1){
+            a.setImage();
+        }
+        for (Alien b:aliens2){
+            b.setImage();
         }
         alienWave1 = new AlienWave(aliens1,1,0);
         alienWave2 = new AlienWave(aliens2, 1,0);
