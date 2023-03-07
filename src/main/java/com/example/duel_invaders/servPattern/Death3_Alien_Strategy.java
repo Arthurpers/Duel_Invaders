@@ -9,7 +9,7 @@ public class Death3_Alien_Strategy implements IAlien_death_strategy {
     public void kill(Alien a) {
         a.setNbHits(1);
 
-        if (a.getNbHits() >3){
+        if (a.getNbHits() >2){
             a.setAlive(false);
         }
     }

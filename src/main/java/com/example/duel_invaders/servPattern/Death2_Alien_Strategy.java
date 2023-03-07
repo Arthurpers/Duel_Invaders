@@ -11,7 +11,7 @@ public class Death2_Alien_Strategy implements IAlien_death_strategy {
 
         a.setNbHits(1);
 
-        if (a.getNbHits() >2){
+        if (a.getNbHits() >1){
             a.setAlive(false);
         }
 
