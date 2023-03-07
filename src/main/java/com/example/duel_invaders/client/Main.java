@@ -106,6 +106,7 @@ public class Main extends Application {
                     //myClt.transmettreChaine("PING");
 
                     //myClt.transmettreChaine(String.valueOf(inputHandler.getActiveKeys()));
+
                     System.out.println(gameEngine.getPlayer1().getCannon().getNbVies());
                     System.out.println(gameEngine.getPlayer2().getCannon().getNbVies());
 

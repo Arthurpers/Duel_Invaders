@@ -29,13 +29,13 @@ public class Alien {
 
     private boolean isAlive;
 
-    private IAlien_K_strategy shoot_strategy;
+    private IAlien_death_strategy shoot_strategy;
     Image alienImage;
     ImageView alienView;
 
     //Public strategy Movement?
 
-    public Alien(int x, int y, int width, int height, IAlien_K_strategy shoot_strategy) {
+    public Alien(int x, int y, int width, int height, IAlien_death_strategy shoot_strategy) {
         this.x = x;
         this.y = y;
         this.width = width;

@@ -3,7 +3,7 @@ package com.example.duel_invaders.servPattern;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Shoot2_Alien_Strategy implements IAlien_K_strategy{
+public class Death2_Alien_Strategy implements IAlien_death_strategy {
 
     public void kill(Alien a) {
 

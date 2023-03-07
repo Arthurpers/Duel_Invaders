@@ -30,14 +30,16 @@ public class GameSetup {
 
 
             for (int j = 0; j <= 10; j++) {
-                Alien alien1 = new Alien(xi + j * (size_alien + 3), yi + 1 * (size_alien + 3), size_alien, size_alien, new Shoot3_Alien_Strategy());
-                Alien alien2 = new Alien(xi + j * (size_alien + 3), yi + 1 * (size_alien + 3), size_alien, size_alien, new Shoot3_Alien_Strategy());
+                Alien alien1 = new Alien(xi + j * (size_alien + 3), yi + 1 * (size_alien + 3), size_alien, size_alien, new Death3_Alien_Strategy());
+                Alien alien2 = new Alien(xi + j * (size_alien + 3), yi + 1 * (size_alien + 3), size_alien, size_alien, new Death3_Alien_Strategy());
+                //Alien qui auront trois vies
 
-                Alien alien3 = new Alien(xi + j * (size_alien + 3), yi + 2 * (size_alien + 3), size_alien, size_alien, new Shoot2_Alien_Strategy());
-                Alien alien4 = new Alien(xi + j * (size_alien + 3), yi + 2 * (size_alien + 3), size_alien, size_alien, new Shoot2_Alien_Strategy());
-
-                Alien alien5 = new Alien(xi + j * (size_alien + 3), yi + 3 * (size_alien + 3), size_alien, size_alien, new Shoot1_Alien_Strategy());
-                Alien alien6 = new Alien(xi + j * (size_alien + 3), yi + 3 * (size_alien + 3), size_alien, size_alien, new Shoot1_Alien_Strategy());
+                Alien alien3 = new Alien(xi + j * (size_alien + 3), yi + 2 * (size_alien + 3), size_alien, size_alien, new Death2_Alien_Strategy());
+                Alien alien4 = new Alien(xi + j * (size_alien + 3), yi + 2 * (size_alien + 3), size_alien, size_alien, new Death2_Alien_Strategy());
+                //Alien qui auront deux vies
+                Alien alien5 = new Alien(xi + j * (size_alien + 3), yi + 3 * (size_alien + 3), size_alien, size_alien, new Death1_Alien_Strategy());
+                Alien alien6 = new Alien(xi + j * (size_alien + 3), yi + 3 * (size_alien + 3), size_alien, size_alien, new Death1_Alien_Strategy());
+                //Alien qui auront une seule vie
                 aliens1.add(alien1);
                 aliens2.add(alien2);
                 aliens1.add(alien3);
