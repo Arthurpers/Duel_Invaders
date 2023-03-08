@@ -1,6 +1,10 @@
 package com.example.duel_invaders.servPattern;
 
 import javafx.geometry.Bounds;
+
+/**
+ * La classe AlienComponent est le composant. AlienWave sera un composite formé d'Alien(classe qui hérite de AlienComponent).
+ */
 public abstract class AlienComponent {
     private int x;
 
