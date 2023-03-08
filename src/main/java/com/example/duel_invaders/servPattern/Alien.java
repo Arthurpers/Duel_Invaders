@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 /**
  * Classe permettant de gérer un alien
  */
-public class Alien {
+public class Alien extends AlienComponent {
     private int x;
     private int y;
     private int width;
