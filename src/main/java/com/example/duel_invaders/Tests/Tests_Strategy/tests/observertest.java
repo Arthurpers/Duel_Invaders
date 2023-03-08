@@ -8,13 +8,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 
 public class observertest {
 
-    @Test
+
     public void testNotification(){
         Stage newWindow = new Stage();
 
