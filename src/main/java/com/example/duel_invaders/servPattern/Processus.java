@@ -2,15 +2,12 @@ package com.example.duel_invaders.servPattern;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- * Processus de Transaction (anciennement ServeurSpecifique)
- */
-class ProcessusTransaction extends Thread {
+class Processus extends Thread {
 
 	private Socket clientSocket;
 	private ServeurTCP monServeurTCP;
 
-	public ProcessusTransaction(Socket uneSocket, ServeurTCP unServeur) {
+	public Processus(Socket uneSocket, ServeurTCP unServeur) {
 		super("ServeurThread");
 		clientSocket = uneSocket;
 		System.out.println("[Processus] CLIENT : " + clientSocket);

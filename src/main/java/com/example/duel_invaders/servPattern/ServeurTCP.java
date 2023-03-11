@@ -6,7 +6,7 @@ import java.net.*;
 
 public class ServeurTCP extends Thread{
 
-    private static int nbConnexions = 0;
+    private int nbConnexions;
 
     /** Maximum de connexions client autorisées */
     //private int maxConnexions;
@@ -56,7 +56,7 @@ public class ServeurTCP extends Thread{
                 System.out.println("Accept failed: " + serverSocket.getLocalPort() + ", " + e);
                 System.exit(1);
             }
-            ProcessusTransaction st = new ProcessusTransaction( clientSocket , this );
+            Processus st = new Processus( clientSocket , this );
             st.start();
         }
         //System.out.println("Deja " + nbConnexions + " clients. Maximum autorisé atteint");
@@ -79,5 +79,7 @@ public class ServeurTCP extends Thread{
         return contexte;
     }
 
-
+    public int getNbConnexions() {
+        return nbConnexions;
+    }
 }
